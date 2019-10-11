@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chat</title>
+    <style>
+         * { 
+    margin: 0; padding: 0; box-sizing: border-box; 
+}
+body {
+    font: 13px Helvetica, Arial; 
+}
+form {
+    padding: 3px;
+    position: fixed;
+    bottom: 0;
+    width: 100%; 
+}
+form input {
+    border: 0;
+    padding: 10px;
+    width: 90%;
+    margin-right: 1px; 
+    border:1px solid #000;
+}
+form button {
+    width: 9%;
+     background: rgb(130, 224, 255);
+      border: none;
+      padding: 10px;
+      border:1px solid #000;
+     }
+#messages { 
+    list-style-type: none;
+     margin: 0;
+      padding: 0;
+     }
+#messages li {
+     padding: 5px 10px;
+     }
+#messages li:nth-child(odd) {
+     background: #eee;
+     }
+.myBlock {
+    width: 20%;
+    margin-bottom: 1px;
+}
+.myBlock button {
+    width: 20%;
+}
+form .myBlock input {
+    width: 79%;
+}
+li.bfg:after {content: "writing...";position: absolute;left: 10px;margin-top: 15px;font-size: 14px;color: #000;font-weight: 600;}
+          </style>
+          <!-- <link rel="stylesheet" href="style.css"> -->
+          <script src="/socket.io/socket.io.js"></script>
+          <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+</head>
+<body>
+    <h1>HOHOHO</h1>
+        <ul id="messages"></ul>
+        <form action="">
+          <div class="myBlock">
+          <input type="text" id="name" placeholder="Your login"><button>Ok!</button>
+        </div>
+          <input id="m" autocomplete="off" placeholder="Message..."/><button>Send</button>
+        </form>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  $(function(){
+  var socket = io();
+  $('form').submit(function(e){
+    e.preventDefault();
+    socket.emit('chat message', $('#m').val());
+    $('#m').val('');
+    return false;
+  })
+  socket.on('chat message', function(msg){
+    $('#messages').append($('<li>').text(msg));
+  })
+  socket.on('writing', function(){
+    $('#messages li:last-child').addClass("writing");
+  })
+})
+</script>
+</body>
+</html>
