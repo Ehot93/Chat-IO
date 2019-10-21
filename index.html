@@ -53,6 +53,10 @@ form button {
 form .myBlock input {
     width: 79%;
 }
+.writing:before, .writing2:before{
+    content:"writing";
+    color:red;
+}
 li.bfg:after {content: "writing...";position: absolute;left: 10px;margin-top: 15px;font-size: 14px;color: #000;font-weight: 600;}
           </style>
           <!-- <link rel="stylesheet" href="style.css"> -->
@@ -74,16 +78,23 @@ li.bfg:after {content: "writing...";position: absolute;left: 10px;margin-top: 15
   var socket = io();
   $('form').submit(function(e){
     e.preventDefault();
-    socket.emit('chat message', $('#m').val());
-    $('#m').val('');
+    socket.emit('chat message',$('#name').val() + ": " + $('#m').val());
+    $('#name').val() + ": " + $('#m').val('');
     return false;
   })
   socket.on('chat message', function(msg){
     $('#messages').append($('<li>').text(msg));
   })
+  
+  document.addEventListener('keydown', (event) => {
+    socket.emit('writing')      
+    //return (console.log("zz"));
+  });
   socket.on('writing', function(){
-    $('#messages li:last-child').addClass("writing");
-  })
+    // $('#messages li:last-child').addClass("bfg");
+    console.log("nn");
+  });
+  
 })
 </script>
 </body>

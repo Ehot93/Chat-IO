@@ -15,6 +15,13 @@ app.get('/', function(req, res){
     socket.on('chat message', function(msg){
       io.emit('chat message', msg);
     })
+    socket.on('writing', ()=>{
+      $('#messages li:last-child').addClass("bfg");
+      console.log("ss");
+      // $('#messages li:last-child').addClass("writing2");
+      //io.emit('writing', function(){});
+      //onkeypress ?  console.log('writing') : console.log('not writing');
+    })
   })
 
 http.listen(3000, function(){

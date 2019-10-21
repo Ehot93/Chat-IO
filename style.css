@@ -44,3 +44,7 @@ form button {
 form .myBlock input {
     width: 79%;
 }
+.writing:before, .writing2:before{
+    content:"writing";
+    color:red;
+}
